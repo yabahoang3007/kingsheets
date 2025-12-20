@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kingsheets — Chuyển dữ liệu lớn thành quyết định thông minh</title>
+  <meta name="description" content="Kingsheets — Giải pháp thu thập, xử lý và phân tích dữ liệu lớn (ETL, Streaming, Data Lake, ML Ops). Tối ưu chi phí, tăng tốc phân tích." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#0f1724" />
+</head>
+<body class="page">
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#" aria-label="Kingsheets — Trang chủ">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden><rect x="2" y="3" width="20" height="18" rx="4" fill="#0f1724"/><path d="M6 13h12M6 9h12" stroke="#2dd4bf" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="brand-name">Kingsheets</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Chính">
+        <a href="#services">Dịch vụ</a>
+        <a href="#process">Quy trình</a>
+        <a href="#cases">Case study</a>
+        <a href="#pricing">Bảng giá</a>
+        <a href="#contact" class="btn small cta">Liên hệ</a>
+      </nav>
+
+      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Mở menu">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <p class="eyebrow">Giải pháp Xử lý Dữ liệu Lớn</p>
+          <h1>Biến dữ liệu khổng lồ thành quyết định nhanh — với Kingsheets</h1>
+          <p class="sub">Tư vấn, thiết kế kiến trúc, triển khai pipeline real-time & batch, xây dựng Data Lake/Warehouse và MLOps — tối ưu chi phí, đảm bảo SLO.</p>
+
+          <div class="hero-ctas">
+            <a class="btn primary large" href="#contact">Yêu cầu tư vấn</a>
+            <a class="btn ghost" href="#cases">Xem case study</a>
+          </div>
+
+          <ul class="hero-stats" aria-hidden>
+            <li><strong>99.9%</strong><span>Uptime SLA</span></li>
+            <li><strong>≤15m</strong><span>Thời gian báo cáo</span></li>
+            <li><strong>24/7</strong><span>Hỗ trợ doanh nghiệp</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-right">
+          <!-- Simple illustrative SVG (self-contained, no external assets) -->
+          <svg class="hero-illus" viewBox="0 0 600 400" role="img" aria-label="Illustration về xử lý dữ liệu">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#0ea5a1"/></linearGradient>
+            </defs>
+            <rect x="30" y="40" width="420" height="280" rx="18" fill="#0b1220" opacity="0.9"/>
+            <g transform="translate(80,80)" fill="#fff" opacity="0.95">
+              <rect x="0" y="0" width="140" height="100" rx="8" fill="#042b2e"/>
+              <rect x="160" y="0" width="120" height="60" rx="8" fill="#064e4b"/>
+              <rect x="0" y="120" width="280" height="40" rx="8" fill="#053c3b"/>
+              <circle cx="220" cy="160" r="36" fill="url(#g1)" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section container reveal">
+      <h2 class="section-title">Dịch vụ nổi bật</h2>
+      <p class="lead">Kingsheets triển khai trọn gói từ ingestion đến analytics & MLOps — tùy chỉnh theo ngành hàng.</p>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><path d="M3 12h18" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Ingestion & Streaming</h3>
+          <p>Kết nối logs, IoT, DBs, API; triển khai Kafka / PubSub / Kinesis & CDC.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z" stroke="#0f1724" stroke-width="1.6" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <h3>ETL / ELT & Pipelines</h3>
+          <p>Spark, Flink, Airflow: thiết kế, test, và vận hành pipeline scale lớn.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><path d="M12 3v18" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Data Lake & Warehouse</h3>
+          <p>Data Lake (S3/ADLS), Warehouse (BigQuery, Snowflake) tối ưu truy vấn & chi phí.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 3 16 3-8 4-0" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <h3>Analytics & BI</h3>
+          <p>Dashboards, báo cáo tự động, và dữ liệu sẵn sàng cho phân tích nâng cao.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" stroke="#0f1724" stroke-width="1.6" fill="none"/><path d="M5 21c2-4 6-7 7-7s5 3 7 7" stroke="#0f1724" stroke-width="1.6" fill="none"/></svg>
+          </div>
+          <h3>MLOps</h3>
+          <p>Pipeline huấn luyện, deploy, model monitoring & re-training (Kubeflow, MLflow).</p>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden>
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="12" rx="2" stroke="#0f1724" stroke-width="1.6" fill="none"/><path d="M7 15v3M12 15v3M17 15v3" stroke="#0f1724" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Governance & Security</h3>
+          <p>Encryption, IAM, audit logs và quy trình tuân thủ (GDPR, ISO).</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="process" class="section alt container reveal">
+      <h2 class="section-title">Quy trình triển khai</h2>
+      <div class="process">
+        <div class="step">
+          <strong>1</strong>
+          <h4>Khám phá & Định nghĩa</h4>
+          <p>Workshop, data profiling, xác định SLA & rủi ro bảo mật.</p>
+        </div>
+        <div class="step">
+          <strong>2</strong>
+          <h4>Thiết kế kiến trúc</h4>
+          <p>Chọn pattern: batch/stream, storage, cost-optimizations.</p>
+        </div>
+        <div class="step">
+          <strong>3</strong>
+          <h4>Xây dựng & Kiểm thử</h4>
+          <p>CI/CD cho pipelines, test dữ liệu, benchmarking.</p>
+        </div>
+        <div class="step">
+          <strong>4</strong>
+          <h4>Vận hành & Chuyển giao</h4>
+          <p>Monitoring, runbook, đào tạo đội nội bộ và SLA support.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases" class="section container reveal">
+      <h2 class="section-title">Case study & Thành tựu</h2>
+
+      <div class="cases-grid">
+        <div class="case-card">
+          <h3>Sàn TMĐT — Tối ưu báo cáo</h3>
+          <p>Rút thời gian ETL từ 6 giờ xuống <strong>15 phút</strong>, giảm chi phí compute 40%.</p>
+          <a class="link" href="#contact">Yêu cầu chi tiết →</a>
+        </div>
+
+        <div class="case-card">
+          <h3>IoT — Streaming analytics</h3>
+          <p>Phát hiện bất thường real-time, giảm thời gian response incidents 70%.</p>
+          <a class="link" href="#contact">Yêu cầu chi tiết →</a>
+        </div>
+
+        <div class="case-card">
+          <h3>Fintech — Data Warehouse</h3>
+          <p>Thiết kế schema & ETL, tích hợp BI giúp team phân tích nhanh hơn.</p>
+          <a class="link" href="#contact">Yêu cầu chi tiết →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section alt container reveal">
+      <h2 class="section-title">Gói dịch vụ</h2>
+      <p class="lead">Gói linh hoạt cho startup đến enterprise — giá khởi điểm minh bạch.</p>
+
+      <div class="pricing-cards">
+        <div class="price-card">
+          <div class="pc-head"><h3>Starter</h3><p class="price">Từ 10M / tháng</p></div>
+          <ul>
+            <li>PoC & đánh giá dữ liệu</li>
+            <li>Pipeline nhỏ & support 1 tháng</li>
+          </ul>
+          <a class="btn" href="#contact">Yêu cầu</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="pc-head"><h3>Business</h3><p class="price">Từ 50M / tháng</p></div>
+          <ul>
+            <li>Pipeline sản xuất</li>
+            <li>Warehouse & BI</li>
+            <li>SLAs & 24/7</li>
+          </ul>
+          <a class="btn primary" href="#contact">Liên hệ tư vấn</a>
+        </div>
+
+        <div class="price-card">
+          <div class="pc-head"><h3>Enterprise</h3><p class="price">Tùy chỉnh</p></div>
+          <ul>
+            <li>Kiến trúc cao cấp</li>
+            <li>Multi-cloud & on-prem</li>
+            <li>Dedicated team</li>
+          </ul>
+          <a class="btn" href="#contact">Báo giá</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section container reveal">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h2>Yêu cầu tư vấn — Kingsheets</h2>
+          <p class="muted">Cho chúng tôi biết mục tiêu & nguồn dữ liệu — chúng tôi sẽ phản hồi trong 24 giờ làm việc.</p>
+
+          <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST" class="contact-form" novalidate>
+            <label class="field">
+              <span class="label">Tên công ty / cá nhân</span>
+              <input name="name" type="text" required placeholder="VD: Công ty ABC"/>
+            </label>
+
+            <label class="field">
+              <span class="label">Email</span>
+              <input name="email" type="email" required placeholder="you@company.com"/>
+            </label>
+
+            <label class="field">
+              <span class="label">Số điện thoại</span>
+              <input name="phone" type="tel" placeholder="+84 9xx xxx xxx"/>
+            </label>
+
+            <label class="field">
+              <span class="label">Mô tả ngắn yêu cầu</span>
+              <textarea name="message" rows="5" required placeholder="Mô tả mục tiêu, nguồn dữ liệu & timeline"></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Gửi yêu cầu</button>
+              <button type="reset" class="btn ghost">Xóa</button>
+            </div>
+
+            <p class="small muted">Hoặc email: <a href="mailto:contact@kingsheets.vn">contact@kingsheets.vn</a></p>
+          </form>
+        </div>
+
+        <aside class="contact-info">
+          <h3>Liên hệ nhanh</h3>
+          <p><strong>Chủ sở hữu:</strong> Phạm Nhật Hoàng</p>
+          <p><strong>Email:</strong> <a href="mailto:contact@kingsheets.vn">contact@kingsheets.vn</a></p>
+          <p><strong>Hỗ trợ:</strong> 24/7 enterprise support</p>
+
+          <div class="testimonials">
+            <h4>Khách hàng nói gì</h4>
+            <blockquote>“Kingsheets giúp rút thời gian báo cáo xuống mức chưa từng có — đội kỹ sư rất chuyên nghiệp.”<cite>— CTO, Sàn TMĐT</cite></blockquote>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div class="copy">&copy; 2025 Kingsheets — Sở hữu: Phạm Nhật Hoàng</div>
+      <nav class="footer-nav">
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
