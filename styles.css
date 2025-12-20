@@ -25,7 +25,6 @@ body{margin:0;background:linear-gradient(180deg,#f7fbfc 0%, #f1f7f9 100%);color:
 .brand-logo{width:36px;height:36px;border-radius:8px;object-fit:cover}
 .brand-name{font-size:1.05rem}
 .avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #2dd4bf}
-.hero-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #2dd4bf;margin:1rem 0}
 .nav{margin-left:auto;display:flex;gap:1rem;align-items:center}
 .nav a{color:var(--bg);text-decoration:none;padding:.45rem .75rem;border-radius:10px;transition:all .18s}
 .nav a:hover{background:var(--glass)}
