@@ -1,7 +1,12 @@
+param(
+    [string]$Source = "ava.jpg",
+    [string]$Target = "ava_optimized.jpg"
+)
+
 Add-Type -AssemblyName System.Drawing
 
-$originalPath = "C:\Users\Henry\Documents\GitHub\kingsheets\ava.jpg"
-$optimizedPath = "C:\Users\Henry\Documents\GitHub\kingsheets\ava_optimized.jpg"
+$originalPath = "$PSScriptRoot\$Source"
+$optimizedPath = "$PSScriptRoot\$Target"
 
 $original = [System.Drawing.Image]::FromFile($originalPath)
 $width = 100

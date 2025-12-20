@@ -48,9 +48,8 @@ document.addEventListener('DOMContentLoaded', function(){
         ev.preventDefault();
         alert('Vui lòng điền đầy đủ các trường bắt buộc.');
       } else {
-        // show quick micro-interaction
-        const btn = form.querySelector('button[type="submit"]');
-        if(btn) { btn.disabled = true; btn.innerText = 'Đang gửi...'; }
+        // Form will open email client
+        alert('Cảm ơn! Email client sẽ mở để gửi yêu cầu tư vấn.');
       }
     });
   }
