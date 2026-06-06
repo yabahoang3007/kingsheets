@@ -1,56 +1,143 @@
-// Minimal JS: mobile nav toggle, reveal on scroll, simple validation UX
-document.addEventListener('DOMContentLoaded', function(){
-  // Mobile nav toggle
-  const nav = document.getElementById('nav');
-  const toggle = document.getElementById('nav-toggle');
-  toggle && toggle.addEventListener('click', ()=> {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    if(nav.style.display === 'flex'){ nav.style.display = ''; }
-    else { nav.style.display = 'flex'; nav.style.flexDirection = 'column'; nav.style.gap = '0.6rem'; }
-  });
+// Google Apps Script endpoint — thay bằng URL deploy của bạn nếu cần
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzYe-pO5kQ5UX-09LZAkdT7tEmI5SM2LXTFD4nqmtqmpnQbv72Oy4MSayJerWISUOROvQ/exec';
 
-  // Reveal on scroll using IntersectionObserver
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+// Capture UTM params từ URL quảng cáo
+function getUTMs() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    utm_source:   p.get('utm_source')   || '',
+    utm_medium:   p.get('utm_medium')   || '',
+    utm_campaign: p.get('utm_campaign') || '',
+    utm_content:  p.get('utm_content')  || '',
+    source_url:   window.location.href,
+  };
+}
+
+// Điền UTM vào các hidden fields của cả hai form
+function fillUTMFields() {
+  const utms = getUTMs();
+  document.querySelectorAll('input[name="utm_source"]').forEach(el => el.value = utms.utm_source);
+  document.querySelectorAll('input[name="utm_medium"]').forEach(el => el.value = utms.utm_medium);
+  document.querySelectorAll('input[name="utm_campaign"]').forEach(el => el.value = utms.utm_campaign);
+  document.querySelectorAll('input[name="utm_content"]').forEach(el => el.value = utms.utm_content);
+  document.querySelectorAll('input[name="source_url"]').forEach(el => el.value = utms.source_url);
+}
+
+// Gửi dữ liệu lên Google Sheet qua Apps Script
+async function submitToSheet(data) {
+  data.timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     });
-  }, {threshold: 0.12});
-
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Smooth scroll for internal links
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const target = document.querySelector(a.getAttribute('href'));
-      if(target){
-        e.preventDefault();
-        target.scrollIntoView({behavior:'smooth',block:'start'});
-        // close mobile nav if open
-        if(window.innerWidth < 800 && nav.style.display === 'flex'){
-          nav.style.display = 'none';
-          toggle && toggle.setAttribute('aria-expanded', 'false');
-        }
-      }
-    })
-  });
-
-  // Simple client-side validation UX
-  const form = document.getElementById('contact-form');
-  if(form){
-    form.addEventListener('submit', (ev)=>{
-      const required = form.querySelectorAll('[required]');
-      let ok = true;
-      required.forEach(f => {
-        if(!f.value.trim()){ ok = false; f.style.outline = '2px solid rgba(255,92,92,0.18)'; setTimeout(()=> f.style.outline = '', 1200); }
-      });
-      if(!ok){
-        ev.preventDefault();
-        alert('Vui lòng điền đầy đủ các trường bắt buộc.');
-      } else {
-        // Form will open email client
-        alert('Cảm ơn! Email client sẽ mở để gửi yêu cầu tư vấn.');
-      }
-    });
+    return true;
+  } catch (e) {
+    return false;
   }
+}
+
+// Xử lý submit cho một form
+function setupForm(formId, successId) {
+  const form = document.getElementById(formId);
+  const successEl = document.getElementById(successId);
+  if (!form || !successEl) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validate
+    const nameEl  = form.querySelector('[name="name"]');
+    const phoneEl = form.querySelector('[name="phone"]');
+    let valid = true;
+
+    [nameEl, phoneEl].forEach(el => {
+      if (!el || !el.value.trim()) {
+        valid = false;
+        el.style.borderColor = '#e74c3c';
+        setTimeout(() => el.style.borderColor = '', 2000);
+      }
+    });
+    if (!valid) {
+      nameEl && !nameEl.value.trim() && nameEl.focus();
+      return;
+    }
+
+    // Collect data
+    const data = {};
+    new FormData(form).forEach((v, k) => data[k] = v);
+
+    // Loading state
+    const btn = form.querySelector('.btn-submit');
+    const btnText    = btn.querySelector('.btn-text');
+    const btnLoading = btn.querySelector('.btn-loading');
+    btn.disabled = true;
+    if (btnText)    btnText.hidden = true;
+    if (btnLoading) btnLoading.hidden = false;
+    if (!btnText && !btnLoading) btn.textContent = 'Đang gửi...';
+
+    await submitToSheet(data);
+
+    // Luôn hiện success sau khi gửi (no-cors không đọc được response)
+    form.hidden = true;
+    successEl.hidden = false;
+    successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Facebook Pixel — fire Lead event nếu có pixel
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+
+    // Google Ads conversion — thay CONVERSION_ID nếu có
+    // if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXX' });
+  });
+}
+
+// Sticky bar: ẩn khi form đang trong viewport
+function setupStickyBar() {
+  const bar     = document.getElementById('sticky-bar');
+  const formTop = document.getElementById('form-top');
+  if (!bar || !formTop) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      bar.style.opacity    = entry.isIntersecting ? '0' : '1';
+      bar.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+    });
+  }, { threshold: 0.3 });
+  io.observe(formTop);
+}
+
+// Smooth scroll cho anchor links
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 72; // header height
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+// Reveal on scroll
+function setupReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fillUTMFields();
+  setupForm('lead-form',   'form-success');
+  setupForm('lead-form-2', 'form-success-2');
+  setupStickyBar();
+  setupSmoothScroll();
+  setupReveal();
 });
