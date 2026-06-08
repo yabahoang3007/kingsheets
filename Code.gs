@@ -13,8 +13,8 @@
 // ============================================================
 
 // === CÀI ĐẶT ===
-// Không cần SPREADSHEET_ID — script tự dùng spreadsheet đang mở
-const SHEET_NAME = 'Leads'; // Tên tab trong sheet
+const SPREADSHEET_ID = '1vCY5YKEq1gT0OWUCHBsDteEdiB42Y0NZ8rt0YafJQP0';
+const SHEET_NAME     = 'Leads';
 
 // Các cột theo thứ tự (phải khớp với header row trong sheet)
 const COLUMNS = [
@@ -38,7 +38,7 @@ function doPost(e) {
     const raw  = e.postData ? e.postData.contents : '{}';
     const data = JSON.parse(raw);
 
-    const ss    = SpreadsheetApp.getActiveSpreadsheet();
+    const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = getOrCreateSheet(ss, SHEET_NAME);
 
     // Tạo header row nếu sheet còn trống
