@@ -13,8 +13,8 @@
 // ============================================================
 
 // === CÀI ĐẶT ===
-const SPREADSHEET_ID = 'THAY_BANG_ID_SHEET_CUA_BAN'; // Lấy từ URL sheet: /spreadsheets/d/[ID]/
-const SHEET_NAME     = 'Leads';                        // Tên tab trong sheet
+// Không cần SPREADSHEET_ID — script tự dùng spreadsheet đang mở
+const SHEET_NAME = 'Leads'; // Tên tab trong sheet
 
 // Các cột theo thứ tự (phải khớp với header row trong sheet)
 const COLUMNS = [
@@ -23,8 +23,8 @@ const COLUMNS = [
   'phone',
   'need_type',
   'need',
-  'promo_code',       // MÃ KHUYẾN MẠI — thêm mới
-  'promo_label',      // Mô tả ưu đãi đi kèm mã
+  'promo_code',
+  'promo_label',
   'utm_source',
   'utm_medium',
   'utm_campaign',
@@ -38,7 +38,7 @@ function doPost(e) {
     const raw  = e.postData ? e.postData.contents : '{}';
     const data = JSON.parse(raw);
 
-    const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const ss    = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = getOrCreateSheet(ss, SHEET_NAME);
 
     // Tạo header row nếu sheet còn trống

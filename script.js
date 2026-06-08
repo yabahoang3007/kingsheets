@@ -34,13 +34,16 @@ async function submitContact(formData) {
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name:         formData.name || '',
-      phone:        formData.phone || '',
-      need_type:    formData.need_type || '',
-      need:         formData.need || '',
-      promo_code:   formData.promo_code || '',
-      utm_source:   formData.utm_source || '',
-      utm_campaign: formData.utm_campaign || ''
+      name:         formData.name         || '',
+      phone:        formData.phone        || '',
+      need_type:    formData.need_type    || '',
+      need:         formData.need         || '',
+      promo_code:   formData.promo_code   || '',
+      utm_source:   formData.utm_source   || '',
+      utm_medium:   formData.utm_medium   || '',
+      utm_campaign: formData.utm_campaign || '',
+      utm_content:  formData.utm_content  || '',
+      source_url:   formData.source_url   || '',
     })
   });
 }
