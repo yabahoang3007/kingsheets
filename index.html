@@ -109,8 +109,19 @@
                 <input name="phone" type="tel" required placeholder="09xx xxx xxx" autocomplete="tel" />
               </label>
               <label class="field">
-                <span class="label">Bạn đang cần giúp gì?</span>
-                <textarea name="need" rows="3" placeholder="VD: Muốn có báo cáo doanh thu tự động mỗi sáng từ file Excel..."></textarea>
+                <span class="label">Nhu cầu của bạn</span>
+                <select name="need_type">
+                  <option value="">-- Chọn nhu cầu --</option>
+                  <option value="Báo cáo tự động">Báo cáo tự động (doanh thu, tồn kho...)</option>
+                  <option value="Dashboard doanh số">Dashboard doanh số theo thời gian thực</option>
+                  <option value="Phân tích dữ liệu">Phân tích dữ liệu &amp; tìm insight</option>
+                  <option value="Kết nối dữ liệu">Kết nối nhiều nguồn dữ liệu</option>
+                  <option value="Khác">Khác</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="label">Mô tả thêm (không bắt buộc)</span>
+                <textarea name="need" rows="2" placeholder="VD: Muốn có báo cáo doanh thu tự động mỗi sáng từ file Excel..."></textarea>
               </label>
               <!-- UTM fields ẩn — script.js tự điền -->
               <input type="hidden" name="utm_source" />
@@ -290,6 +301,21 @@
               <label class="field">
                 <span class="label">Số điện thoại <span class="req">*</span></span>
                 <input name="phone" type="tel" required placeholder="09xx xxx xxx" />
+              </label>
+              <label class="field">
+                <span class="label">Nhu cầu của bạn</span>
+                <select name="need_type">
+                  <option value="">-- Chọn nhu cầu --</option>
+                  <option value="Báo cáo tự động">Báo cáo tự động (doanh thu, tồn kho...)</option>
+                  <option value="Dashboard doanh số">Dashboard doanh số theo thời gian thực</option>
+                  <option value="Phân tích dữ liệu">Phân tích dữ liệu &amp; tìm insight</option>
+                  <option value="Kết nối dữ liệu">Kết nối nhiều nguồn dữ liệu</option>
+                  <option value="Khác">Khác</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="label">Mô tả thêm (không bắt buộc)</span>
+                <textarea name="need" rows="2" placeholder="VD: Muốn có báo cáo doanh thu tự động mỗi sáng từ file Excel..."></textarea>
               </label>
               <input type="hidden" name="utm_source" />
               <input type="hidden" name="utm_medium" />

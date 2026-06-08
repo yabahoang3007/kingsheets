@@ -108,7 +108,8 @@ h1 { font-size: 2rem; font-weight: 800; line-height: 1.15; color: var(--text); m
 }
 .form-card.dark .label { color: rgba(255,255,255,0.85); }
 .form-card.dark input,
-.form-card.dark textarea {
+.form-card.dark textarea,
+.form-card.dark select {
   background: rgba(255,255,255,0.1);
   border-color: rgba(255,255,255,0.2);
   color: #fff;
@@ -123,18 +124,19 @@ h1 { font-size: 2rem; font-weight: 800; line-height: 1.15; color: var(--text); m
 .field { display: flex; flex-direction: column; gap: .28rem; }
 .label { font-size: .85rem; font-weight: 600; color: var(--text); }
 .req { color: #e74c3c; }
-input, textarea {
+input, textarea, select {
   width: 100%; padding: .6rem .8rem;
   border: 1.5px solid var(--border); border-radius: 10px;
   font-size: .95rem; font-family: inherit; color: var(--text);
   background: #f9fafb;
   transition: border-color .15s, box-shadow .15s;
 }
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   outline: none; border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(45,212,191,0.12);
 }
 textarea { resize: vertical; }
+select { cursor: pointer; }
 
 .btn-submit {
   width: 100%; padding: .85rem;

@@ -30,7 +30,8 @@ async function submitContact(formData) {
     body: JSON.stringify({
       name:         formData.name || '',
       phone:        formData.phone || '',
-      message:      formData.message || '',
+      need_type:    formData.need_type || '',
+      need:         formData.need || '',
       utm_source:   formData.utm_source || '',
       utm_campaign: formData.utm_campaign || ''
     })
