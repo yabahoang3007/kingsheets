@@ -1,4 +1,4 @@
-const API_URL = 'https://kingsheets.onrender.com';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxbQW_27YIjrEzcqq9CnS4c7o1ls1DEwG73r0eQDwfbGMleBx0R8YNs6QDl-CoHUFnC8g/exec';
 
 // Capture UTM params từ URL quảng cáo
 function getUTMs() {
@@ -23,22 +23,19 @@ function fillUTMFields() {
 }
 
 async function submitContact(formData) {
-  const res = await fetch(API_URL + '/contact', {
+  await fetch(SHEET_URL, {
     method: 'POST',
+    mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      name: formData.name || '',
-      email: formData.email || '',
-      phone: formData.phone || '',
-      business_type: formData.business_type || '',
-      message: formData.message || ''
+      name:         formData.name || '',
+      phone:        formData.phone || '',
+      message:      formData.message || '',
+      utm_source:   formData.utm_source || '',
+      utm_campaign: formData.utm_campaign || ''
     })
   });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.detail || 'Loi server');
-  }
-  return await res.json();
+  // no-cors không đọc được response — coi như thành công
 }
 
 // Xử lý submit cho một form
