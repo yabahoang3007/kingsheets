@@ -44,7 +44,7 @@ def health():
 
 class ContactForm(BaseModel):
     name: str
-    email: EmailStr
+    email: str = ''
     phone: str = ''
     business_type: str = ''
     message: str = ''
