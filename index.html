@@ -36,6 +36,30 @@
 </head>
 <body>
 
+<!-- ===== PROMO BANNER ===== -->
+<div class="promo-banner" id="promo-banner">
+  <div class="container promo-inner">
+    <div class="promo-left">
+      <span class="promo-fire">🔥</span>
+      <span class="promo-msg">Ưu đãi <strong>tháng 6</strong>: Giảm ngay <strong>20%</strong> cho dự án đầu tiên</span>
+    </div>
+    <div class="promo-mid">
+      <div class="promo-code-box">
+        <span class="promo-code-label">Mã:</span>
+        <span class="promo-code-value" id="promo-code-text">KING20</span>
+        <button class="promo-copy-btn" id="promo-copy-btn" title="Sao chép mã">
+          <i class="fas fa-copy"></i><span id="promo-copy-label"> Sao chép</span>
+        </button>
+      </div>
+    </div>
+    <div class="promo-right">
+      <span class="promo-timer-wrap"><i class="fas fa-clock"></i> Hết hạn sau: <strong id="promo-timer">--:--:--</strong></span>
+      <a href="#contact" class="promo-apply-btn" id="promo-apply-btn">Áp dụng ngay →</a>
+    </div>
+    <button class="promo-dismiss-btn" id="promo-dismiss-btn" aria-label="Đóng"><i class="fas fa-times"></i></button>
+  </div>
+</div>
+
 <!-- ===== TOP BAR ===== -->
 <div class="topbar">
   <div class="container topbar-inner">
@@ -569,6 +593,15 @@
             <span class="label">Mô tả thêm (không bắt buộc)</span>
             <textarea name="need" rows="3" placeholder="VD: Muốn có báo cáo doanh thu tự động mỗi sáng từ file Excel..."></textarea>
           </label>
+          <!-- Promo code field — ẩn mặc định, hiện khi áp mã từ banner -->
+          <div class="field promo-field" id="promo-field-wrap" hidden>
+            <span class="label">Mã ưu đãi</span>
+            <div class="promo-input-row">
+              <input name="promo_code" type="text" id="promo-input" placeholder="Nhập mã ưu đãi..." autocomplete="off" />
+              <button type="button" class="promo-check-btn" id="promo-check-btn">Kiểm tra</button>
+            </div>
+            <div class="promo-status" id="promo-status"></div>
+          </div>
           <input type="hidden" name="utm_source" />
           <input type="hidden" name="utm_medium" />
           <input type="hidden" name="utm_campaign" />

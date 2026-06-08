@@ -1320,3 +1320,170 @@ textarea { resize: vertical; min-height: 80px; }
 @media (min-width: 769px) {
   .back-to-top { bottom: 32px; }
 }
+
+/* =========================================================
+   PROMO BANNER
+   ========================================================= */
+.promo-banner {
+  background: linear-gradient(90deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-dark) 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 10px 0;
+  position: relative;
+  z-index: 1100;
+}
+.promo-banner.dismissed { display: none; }
+
+.promo-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.promo-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+  font-size: 14px;
+  flex: 1;
+  min-width: 200px;
+}
+.promo-fire { font-size: 18px; flex-shrink: 0; }
+.promo-msg strong { color: var(--gold); }
+
+.promo-mid { display: flex; align-items: center; }
+.promo-code-box {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(232,169,24,0.15);
+  border: 1.5px dashed var(--gold);
+  border-radius: 6px;
+  padding: 4px 8px 4px 12px;
+}
+.promo-code-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin-right: 6px;
+}
+.promo-code-value {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-right: 8px;
+}
+.promo-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
+}
+.promo-copy-btn:hover { background: var(--gold-dark); transform: scale(1.05); }
+.promo-copy-btn.copied { background: #22c55e; color: white; }
+
+.promo-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.promo-timer-wrap {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.promo-timer-wrap i { color: var(--gold); font-size: 12px; }
+.promo-timer-wrap strong { color: var(--gold); font-size: 15px; font-variant-numeric: tabular-nums; }
+
+.promo-apply-btn {
+  padding: 6px 16px;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background var(--transition), transform var(--transition);
+}
+.promo-apply-btn:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+.promo-dismiss-btn {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
+  margin-left: auto;
+}
+.promo-dismiss-btn:hover { background: rgba(255,255,255,0.2); color: var(--white); }
+
+/* Promo field inside form */
+.promo-input-row {
+  display: flex;
+  gap: 8px;
+}
+.promo-input-row input { flex: 1; }
+.promo-check-btn {
+  flex-shrink: 0;
+  padding: 0 16px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.promo-check-btn:hover { background: var(--navy-mid); }
+
+.promo-status {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  display: none;
+}
+.promo-status.valid {
+  display: block;
+  color: #16a34a;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.promo-status.invalid {
+  display: block;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+@media (max-width: 768px) {
+  .promo-inner { gap: 10px; }
+  .promo-left { font-size: 13px; min-width: 100%; }
+  .promo-right { gap: 8px; }
+  .promo-timer-wrap { font-size: 12px; }
+  .promo-apply-btn { font-size: 12px; padding: 5px 12px; }
+}
+@media (max-width: 500px) {
+  .promo-mid { display: none; }
+}

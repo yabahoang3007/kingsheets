@@ -1,5 +1,12 @@
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxbQW_27YIjrEzcqq9CnS4c7o1ls1DEwG73r0eQDwfbGMleBx0R8YNs6QDl-CoHUFnC8g/exec';
 
+// ---- Promo config — chỉnh ở đây để thay mã / ưu đãi ----
+const PROMO_CONFIG = {
+  code:     'KING20',       // mã giảm giá
+  discount: '20%',          // mô tả ưu đãi (hiển thị)
+  label:    'Giảm 20% dự án đầu tiên',
+};
+
 // Capture UTM params từ URL quảng cáo
 function getUTMs() {
   const p = new URLSearchParams(window.location.search);
@@ -31,6 +38,7 @@ async function submitContact(formData) {
       phone:        formData.phone || '',
       need_type:    formData.need_type || '',
       need:         formData.need || '',
+      promo_code:   formData.promo_code || '',
       utm_source:   formData.utm_source || '',
       utm_campaign: formData.utm_campaign || ''
     })
@@ -268,6 +276,111 @@ function setupActiveNav() {
   sections.forEach(s => io.observe(s));
 }
 
+// =========================================================
+// PROMO BANNER
+// =========================================================
+function setupPromoBanner() {
+  const banner      = document.getElementById('promo-banner');
+  const dismissBtn  = document.getElementById('promo-dismiss-btn');
+  const copyBtn     = document.getElementById('promo-copy-btn');
+  const copyLabel   = document.getElementById('promo-copy-label');
+  const timerEl     = document.getElementById('promo-timer');
+  const applyBtn    = document.getElementById('promo-apply-btn');
+  const promoInput  = document.getElementById('promo-input');
+  const promoWrap   = document.getElementById('promo-field-wrap');
+  const checkBtn    = document.getElementById('promo-check-btn');
+  const statusEl    = document.getElementById('promo-status');
+
+  if (!banner) return;
+
+  // Ẩn nếu đã dismiss trong session
+  if (sessionStorage.getItem('promo_dismissed')) {
+    banner.classList.add('dismissed');
+    return;
+  }
+
+  // Dismiss
+  dismissBtn && dismissBtn.addEventListener('click', () => {
+    banner.classList.add('dismissed');
+    sessionStorage.setItem('promo_dismissed', '1');
+  });
+
+  // Copy mã
+  copyBtn && copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(PROMO_CONFIG.code).then(() => {
+      copyBtn.classList.add('copied');
+      if (copyLabel) copyLabel.textContent = ' Đã chép!';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        if (copyLabel) copyLabel.textContent = ' Sao chép';
+      }, 2000);
+    });
+  });
+
+  // Áp dụng ngay — scroll to form + điền mã
+  applyBtn && applyBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (promoWrap) promoWrap.hidden = false;
+    if (promoInput) {
+      promoInput.value = PROMO_CONFIG.code;
+      applyPromoCode(PROMO_CONFIG.code);
+    }
+    const formSection = document.getElementById('contact');
+    if (formSection) {
+      const top = formSection.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    setTimeout(() => promoInput && promoInput.focus(), 600);
+  });
+
+  // Kiểm tra mã thủ công
+  checkBtn && checkBtn.addEventListener('click', () => {
+    if (promoInput) applyPromoCode(promoInput.value.trim().toUpperCase());
+  });
+  promoInput && promoInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyPromoCode(promoInput.value.trim().toUpperCase());
+    }
+  });
+
+  // Đồng hồ đếm ngược đến 23:59:59 hôm nay
+  function tick() {
+    if (!timerEl) return;
+    const now  = new Date();
+    const end  = new Date();
+    end.setHours(23, 59, 59, 0);
+    const diff = Math.max(0, end - now);
+    const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+    const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+    timerEl.textContent = `${h}:${m}:${s}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+function applyPromoCode(code) {
+  const statusEl  = document.getElementById('promo-status');
+  const promoWrap = document.getElementById('promo-field-wrap');
+  const promoInput = document.getElementById('promo-input');
+  if (!statusEl) return;
+
+  if (promoWrap) promoWrap.hidden = false;
+
+  if (code === PROMO_CONFIG.code) {
+    statusEl.className = 'promo-status valid';
+    statusEl.innerHTML = `<i class="fas fa-check-circle"></i> Áp dụng thành công! <strong>${PROMO_CONFIG.label}</strong>`;
+    if (promoInput) promoInput.value = code;
+  } else if (code === '') {
+    statusEl.className = 'promo-status';
+    statusEl.style.display = 'none';
+  } else {
+    statusEl.className = 'promo-status invalid';
+    statusEl.innerHTML = `<i class="fas fa-times-circle"></i> Mã <strong>${code}</strong> không hợp lệ hoặc đã hết hạn.`;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   fillUTMFields();
   setupForm('lead-form', 'form-success');
@@ -281,4 +394,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCounters();
   setupAccordion();
   setupActiveNav();
+  setupPromoBanner();
 });
