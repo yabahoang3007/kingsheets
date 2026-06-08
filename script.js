@@ -1,5 +1,4 @@
-// Google Apps Script endpoint — thay bằng URL deploy của bạn nếu cần
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzYe-pO5kQ5UX-09LZAkdT7tEmI5SM2LXTFD4nqmtqmpnQbv72Oy4MSayJerWISUOROvQ/exec';
+const API_URL = 'https://kingsheets.onrender.com';
 
 // Capture UTM params từ URL quảng cáo
 function getUTMs() {
@@ -23,20 +22,23 @@ function fillUTMFields() {
   document.querySelectorAll('input[name="source_url"]').forEach(el => el.value = utms.source_url);
 }
 
-// Gửi dữ liệu lên Google Sheet qua Apps Script
-async function submitToSheet(data) {
-  data.timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
-  try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    return true;
-  } catch (e) {
-    return false;
+async function submitContact(formData) {
+  const res = await fetch(API_URL + '/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: formData.name || '',
+      email: formData.email || '',
+      phone: formData.phone || '',
+      business_type: formData.business_type || '',
+      message: formData.message || ''
+    })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Loi server');
   }
+  return await res.json();
 }
 
 // Xử lý submit cho một form
@@ -78,9 +80,12 @@ function setupForm(formId, successId) {
     if (btnLoading) btnLoading.hidden = false;
     if (!btnText && !btnLoading) btn.textContent = 'Đang gửi...';
 
-    await submitToSheet(data);
+    try {
+      await submitContact(data);
+    } catch (e) {
+      console.error('Submit error:', e);
+    }
 
-    // Luôn hiện success sau khi gửi (no-cors không đọc được response)
     form.hidden = true;
     successEl.hidden = false;
     successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
