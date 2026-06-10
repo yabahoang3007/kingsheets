@@ -621,10 +621,19 @@ h4 { font-size: 16px; }
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--grad-a, var(--navy)), var(--grad-b, var(--navy-light)));
+  position: relative;
 }
 .service-card-bg-icon {
   font-size: 64px;
   color: rgba(255,255,255,0.15);
+  position: absolute;
+}
+.service-card-img--gradient img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
 }
 .service-card-img img {
   width: 100%; height: 100%;
